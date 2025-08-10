@@ -15,7 +15,7 @@ class BankAccount:
         """Adds a specified amount to the account balance."""
         self.account_balance += int(amount)
         # It's good practice to return the new balance
-        return f"Current Balance:{self.account_balance}"
+        return self.account_balance
 
     def withdraw(self, amount):
         """
@@ -30,4 +30,4 @@ class BankAccount:
 
     def display_balance(self):
         """Returns the current account balance."""
-        return self.account_balance
+        print(f"Current balance: ${self.account_balance}")
