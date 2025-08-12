@@ -1,15 +1,39 @@
+#!/usr/bin/python3
+"""
+This module defines the Book and Library classes for a simple library management system.
+"""
+
 class Book:
     """Represents a book with a title, author, and checked-out status."""
+
     def __init__(self, title, author):
+        """Initializes a new Book instance."""
         self.title = title
         self.author = author
-        # The task asks for a private attribute, so we use a single underscore
-        self._is_checked_out = False # Changed name for clarity and convention
+        self._is_checked_out = False
+
+    def check_out(self):
+        """Marks the book as checked out."""
+        # This method now lives inside the Book class.
+        if not self._is_checked_out:
+            self._is_checked_out = True
+            return True
+        return False
+
+    def return_book(self):
+        """Marks the book as returned (not checked out)."""
+        # This method also lives inside the Book class.
+        if self._is_checked_out:
+            self._is_checked_out = False
+            return True
+        return False
+
 
 class Library:
     """Manages a collection of Book objects."""
+
     def __init__(self):
-        # Private list to store book objects
+        """Initializes a new Library instance with an empty list of books."""
         self._books = []
 
     def add_book(self, book):
@@ -17,32 +41,36 @@ class Library:
         self._books.append(book)
 
     def check_out_book(self, title):
-        """Finds a book by title and marks it as checked out."""
+        """Finds a book by title and tells it to check itself out."""
         for book in self._books:
-            if book.title == title and not book._is_checked_out:
-                book._is_checked_out = True
-                print(f"You have checked out '{title}'.")
+            if book.title == title:
+                # Call the book's OWN check_out method
+                if book.check_out():
+                    print(f"You have checked out '{title}'.")
+                else:
+                    print(f"Sorry, '{title}' is already checked out.")
                 return
-        print(f"Sorry, '{title}' is either already checked out or not in the library.")
+        print(f"Sorry, the book '{title}' was not found in the library.")
 
     def return_book(self, title):
-        """Finds a book by title and marks it as returned (not checked out)."""
+        """Finds a book by title and tells it to return itself."""
         for book in self._books:
-            if book.title == title and book._is_checked_out:
-                book._is_checked_out = False
-                print(f"You have returned '{title}'.")
+            if book.title == title:
+                # Call the book's OWN return_book method
+                if book.return_book():
+                    print(f"You have returned '{title}'.")
+                else:
+                    print(f"Sorry, '{title}' was not checked out.")
                 return
-        print(f"Sorry, '{title}' cannot be returned or is not in the library.")
+        print(f"Sorry, the book '{title}' was not found in the library.")
 
     def list_available_books(self):
         """Prints a list of all books that are not checked out."""
-        available_books = []
-        for book in self._books:
-            if not book._is_checked_out:
-                available_books.append(book)
+        available_books = [book for book in self._books if not book._is_checked_out]
         
         if not available_books:
             print("No books are currently available.")
         else:
+            print("Available books:")
             for book in available_books:
-                print(f"{book.title} by {book.author}")
+                print(f"- {book.title} by {book.author}")
