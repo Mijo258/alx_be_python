@@ -1,4 +1,6 @@
-class Book :
+class Book:
+    """A class representing a book with title, author, and publication year."""
+    # Book class definition
     def __init__(self, title, author, year):
         self.title = title
         self.author = author
