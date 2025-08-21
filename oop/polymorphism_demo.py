@@ -8,6 +8,7 @@ class Shape:
 class Rectangle(Shape):
     """Class representing a rectangle."""
     def __init__(self, length: float, width: float):
+        """Initializes the rectangle with length and width."""
         self.length = length
         self.width = width
     def area(self):
