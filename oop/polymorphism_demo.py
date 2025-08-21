@@ -7,12 +7,12 @@ class Shape:
     
 class Rectangle(Shape):
     """Class representing a rectangle."""
-    def __init__(self, width: float, height: float):
+    def __init__(self, length: float, width: float):
+        self.length = length
         self.width = width
-        self.height = height
     def area(self):
         """Calculates the area of the rectangle."""
-        return self.width * self.height
+        return self.width * self.length
     
 class Circle(Shape):
     """Class representing a circle."""  
