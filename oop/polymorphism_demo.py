@@ -13,7 +13,7 @@ class Rectangle(Shape):
         self.width = width
     def area(self):
         """Calculates the area of the rectangle."""
-        return self.width * self.length
+        return self.length * self.width
     
 class Circle(Shape):
     """Class representing a circle."""  
